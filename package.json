@@ -1,0 +1,20 @@
+{
+  "name": "audiofigma-plugin",
+  "private": true,
+    "scripts": {
+      "clean": "rimraf dist pkg",
+      "build:wasm": "wasm-pack build --target web --release",
+      "build:ts": "esbuild src/code.ts --bundle --outfile=dist/code.js --format=iife --tsconfig=tsconfig.json",
+      "build:ui": "esbuild src/ui.ts --bundle --outfile=dist/ui.js --format=esm --tsconfig=tsconfig.json --external:./pkg/audiofigma.js",
+      "copy": "cpy \"src/ui.html\" dist/ && cpy \"pkg/**/*\" dist/ --parents",
+      "build": "npm-run-all clean build:wasm build:ts build:ui copy"
+    },
+    "devDependencies": {
+      "@figma/plugin-typings": "^1.90.0",
+      "cpy-cli": "^5.0.0",
+      "esbuild": "^0.24.0",
+      "npm-run-all": "^4.1.5",
+      "rimraf": "^5.0.0"
+    }
+  }
+  
