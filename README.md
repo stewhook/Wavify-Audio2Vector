@@ -1,0 +1,1 @@
+Removed all these redundencies. Literally have no idea what im doing here in all honesty. Growing more and more frustrated by the minute. Need a break and will reroute back here tomorrow. Peace.
