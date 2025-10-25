@@ -1,12 +1,12 @@
 import { buildEnergyViz } from "./builder";
 
 console.log('=== PLUGIN STARTING ===');
-console.log('Plugin ID:', figma.pluginId);
+console.log('Plugin Connected With Figma. ID:', figma.pluginId);
 console.log('Editor Type:', figma.editorType);
 
 // __html__ will be replaced with HTML content during build
 console.log('Calling figma.showUI...');
-figma.showUI(__html__, { width: 600, height: 300 });
+figma.showUI(__html__, { width: 300, height: 600 });
 console.log('✓ UI shown successfully');
 
 console.log('Setting up onmessage handler...');

@@ -4,17 +4,6 @@ const { build } = require('esbuild');
 // Read the HTML file content
 let htmlContent = fs.readFileSync('src/ui.html', 'utf8');
 
-// Read WASM JS content
-const wasmJsContent = fs.readFileSync('pkg/audiofigma.js', 'utf8');
-
-// Replace the fetch-based WASM loading with inline WASM code
-// Find the section that loads WASM and replace it
-const wasmInlineMarker = 'WASM_INLINE_MARKER';
-htmlContent = htmlContent.replace(
-  /const response = await fetch\('\.\/pkg\/audiofigma\.js'\);\s*const jsCode = await response\.text\(\);/,
-  `const jsCode = ${JSON.stringify(wasmJsContent)};`
-);
-
 // Read the TypeScript code
 let code = fs.readFileSync('src/code.ts', 'utf8');
 
