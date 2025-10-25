@@ -2,11 +2,10 @@
   "name": "audiofigma-plugin",
   "private": true,
     "scripts": {
-      "clean": "rimraf dist pkg",
-      "build:wasm": "wasm-pack build --target web --release",
+      "clean": "rimraf dist",
       "build:ts": "esbuild src/code.ts --bundle --outfile=dist/code.js --format=iife --tsconfig=tsconfig.json",
-      "copy": "powershell -Command \"New-Item -ItemType Directory -Path 'dist' -Force\" && powershell -Command \"Copy-Item 'src/ui.html' 'dist/ui.html'\" && powershell -Command \"Copy-Item 'pkg/*' 'dist/' -Recurse\"",
-      "build": "npm-run-all clean build:wasm build:ts copy"
+      "copy": "powershell -Command \"New-Item -ItemType Directory -Path 'dist' -Force\" && powershell -Command \"Copy-Item 'src/ui.html' 'dist/ui.html'\"",
+      "build": "npm-run-all clean build:ts copy"
     },
     "devDependencies": {
       "@figma/plugin-typings": "^1.90.0",
