@@ -6,7 +6,7 @@ console.log('Editor Type:', figma.editorType);
 
 // __html__ will be replaced with HTML content during build
 console.log('Calling figma.showUI...');
-figma.showUI(__html__, { width: 380, height: 520 });
+figma.showUI(__html__, { width: 600, height: 300 });
 console.log('✓ UI shown successfully');
 
 console.log('Setting up onmessage handler...');
@@ -26,7 +26,7 @@ figma.ui.onmessage = (msg) => {
       console.log('✓ Visualization created successfully');
     } catch (error) {
       console.error('✗ Error creating visualization:', error);
-      figma.notify('Error creating visualization: ' + error.message);
+      figma.notify('Error creating visualization');
     }
   } else {
     console.log('Unknown message type:', msg.type);
