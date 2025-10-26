@@ -22,8 +22,6 @@ Select an audio file as your target, select the amount of packets you would like
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
 ```
 fork -> run [npm run build] -> In Figma (Desktop) -> Plugins -> Development -> Import Plugin From Manifest -> Done
 ```
