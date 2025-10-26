@@ -1,4 +1,4 @@
-export function buildEnergyViz(data: { audioName: string, normalized: number[]; minAvg: number; maxAvg: number; resultPreference: string; }) {
+export function buildEnergyViz(data: { audioName: string; normalized: number[]; minAvg: number; maxAvg: number; resultPreference: string; outputWidth: number; outputHeight: number; }) {
     console.log('=== buildEnergyViz CALLED ===');
     console.log('Data:', data);
     console.log('Normalized values:', data.normalized);
@@ -10,18 +10,18 @@ export function buildEnergyViz(data: { audioName: string, normalized: number[]; 
         const frame = figma.createFrame();
         frame.fills = [];
         frame.name = data.audioName;
-        frame.resize(600, 200);
+        frame.resize(data.outputWidth, data.outputHeight);
         console.log('✓ Frame created:', frame.id);
         
         // Add some visualization based on the data
         let group: RectangleNode[] = [];
         if (data && data.normalized && data.normalized.length > 0) {
             console.log('Adding visualization elements...');
-            const barWidth = 600 / data.normalized.length;
+            const barWidth = data.outputWidth / data.normalized.length;
             let largestBar = 0;
             for (let i = 0; i < data.normalized.length; i++) {
                 const bar = figma.createRectangle();
-                const height = data.normalized[i] * 180;
+                const height = data.normalized[i] * data.outputHeight;
                 if (height > largestBar) {
                     largestBar = height
                 }
