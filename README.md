@@ -10,27 +10,22 @@ Select an audio file as your target, select the amount of packets you would like
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+```
+"devDependencies": {
+   "@figma/plugin-typings": "^1.90.0",
+   "cpy-cli": "^5.0.0",
+   "esbuild": "^0.24.0",
+   "npm-run-all": "^4.1.5",
+   "rimraf": "^5.0.0"
+}
+```
 
 ### Executing program
 
 * How to run the program
 * Step-by-step bullets
 ```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
+fork -> run [npm run build] -> In Figma (Desktop) -> Plugins -> Development -> Import Plugin From Manifest -> Done
 ```
 
 ## Authors
@@ -38,17 +33,21 @@ command to run if program contains helper info
 stewhook (samir@abuznaid.com)
 
 ## Planned Updates
-
-* Batch audio uploads
-* Height & Width customization
-* Different analysis algorithms
-* Isolate analysis by frequency
+```diff
+- Batch audio uploads
++ Height & Width customization (Done)
+- Different analysis algorithms
+- Isolate analysis by frequency
+```
 
 ## Version History
+* 0.2
+   * Added Height & Width Customization
+   * Linked OSRepo in support tab on Figma
 
 * 0.1
     * Initial Release
 
 ## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the LICENSE.md file for details
