@@ -32,10 +32,10 @@ stewhook (samir@abuznaid.com)
 
 ## Planned Updates
 ```diff
-- Batch audio uploads
-+ Height & Width customization (Done)
-- Different analysis algorithms
-- Isolate analysis by frequency
+Batch audio uploads
++Height & Width customization (Done)
+Different analysis algorithms
+Isolate analysis by frequency
 ```
 
 ## Version History
