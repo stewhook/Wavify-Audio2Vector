@@ -1,7 +1,0 @@
-[package]
-name = "audiofigma"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-symphonia = { version = "0.5.5", features = ["mp3", "aac", "flac", "vorbis", "wav", "isomp4", "ogg"] }
