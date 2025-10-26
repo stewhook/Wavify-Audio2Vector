@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Analysis Figma</title>
-    <!-- Import the Inter font --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
@@ -37,7 +37,8 @@
             /* Use flex to stack elements and padding for spacing */
             display: flex;
             flex-direction: column;
-            padding: 24px;
+            /* Reduced vertical padding from 24px to 18px */
+            padding: 18px 24px; 
             box-sizing: border-box; /* Ensures padding doesn't break width/height */
         }
 
@@ -47,14 +48,17 @@
             font-weight: 700;
             color: #ffffff;
             text-align: center;
-            margin-bottom: 20px;
+            /* Reduced margin-bottom from 20px to 10px */
+            margin-bottom: 10px; 
             border-bottom: 1px solid #444;
-            padding-bottom: 15px;
+            /* Reduced padding-bottom from 15px to 10px */
+            padding-bottom: 10px; 
         }
 
         /* --- Form Groups --- */
         .form-group {
-            margin-bottom: 25px;
+            /* Reduced margin-bottom from 25px to 18px */
+            margin-bottom: 18px;
         }
 
         .form-group label {
@@ -64,11 +68,31 @@
             color: #b0b0b0;
             margin-bottom: 8px;
         }
+        
+        /* --- New: Inline Inputs Container for Width/Height --- */
+        .inline-inputs {
+            display: flex;
+            gap: 10px; /* Space between the two input groups */
+        }
+        
+        /* New: Container for the individual input/label pairs */
+        .input-group-inline {
+            display: flex;
+            flex-direction: column;
+            flex: 1; /* Makes each group take equal width */
+        }
+
+        /* Adjust label inside the inline group to sit right above the input */
+        .input-group-inline label {
+            /* Inherit base label style but override display to keep it inline with the flex column setup */
+            margin-bottom: 8px;
+        }
 
         /* --- Number Input Styling --- */
         input[type="number"] {
             width: 100%;
-            padding: 12px;
+            /* Reduced padding from 12px to 8px for a slimmer look */
+            padding: 8px; 
             background-color: #1e1e1e;
             border: 1px solid #555;
             border-radius: 8px;
@@ -76,6 +100,9 @@
             font-size: 1rem;
             box-sizing: border-box; /* Consistent sizing */
         }
+        
+        /* New: No need for .inline-inputs input[type="number"] style anymore */
+        /* because the .input-group-inline handles the flex distribution */
 
         /* Hide spinner in Chrome, Safari, Edge */
         input[type="number"]::-webkit-outer-spin-button,
@@ -167,7 +194,8 @@
         .analyze-button {
             width: 100%;
             padding: 15px 20px;
-            margin-top: 30px; /* Space above the button */
+            /* Reduced margin-top from 30px to 20px */
+            margin-top: 20px; 
             border: none;
             border-radius: 8px;
             font-size: 1.2rem;
@@ -192,34 +220,46 @@
 </head>
 <body>
 
-    <!-- The 300x600 UI Container --><div class="ui-container">
+    <div class="ui-container">
         
         <h2 class="ui-header">Vectorize Audio</h2>
-
-        <!-- Feature 1: File Selection (Audio Only) --><div class="form-group">
+        
+        <div class="form-group">
             <label for="file-input">Audio File</label>
             <input type="file" id="file-input" name="file-input" accept="audio/*">
         </div>
 
-        <!-- Feature 2: Number Input (Packet Count) --><div class="form-group">
+        <div class="form-group">
             <label for="packet-input">Packet Count</label>
             <input type="number" id="packet-input" name="packet-input" value="1024" min="1" max="9999">
+        </div>
+        
+        <div class="form-group">
+            <div class="inline-inputs">
+                <div class="input-group-inline">
+                    <label for="width-input">Width (px)</label>
+                    <input type="number" id="width-input" name="dimension-input" placeholder="600" value="600" min="1" max="9999999" title="Width in pixels">
+                </div>
+                <div class="input-group-inline">
+                    <label for="height-input">Height (px)</label>
+                    <input type="number" id="height-input" name="dimension-input" placeholder="200" value="200" min="1" max="9999999" title="Height in pixels">
+                </div>
+            </div>
         </div>
 
         <div class="settings-section">
             <h3>Settings</h3>
-          
-            <!-- Use label wrapper so the whole row is clickable; use radios for single select -->
+            
             <label class="checkbox-item">
               <input type="radio" id="setting-default-result" name="option" value="default" checked>
               <span>Default</span>
             </label>
-          
+            
             <label class="checkbox-item">
               <input type="radio" id="setting-group-result" name="option" value="group">
               <span>Group Packets</span>
             </label>
-          
+            
             <label class="checkbox-item">
               <input type="radio" id="setting-union-result" name="option" value="union">
               <span>Union Packets</span>
@@ -227,117 +267,134 @@
           </div>
 
         <button class="analyze-button" id="analyze-btn" >Analyze</button>
-</body>
-</div>
+    </div>
     <script type="module">
-      // Grab elements
-      const button = document.getElementById('analyze-btn');
-      const fileInput = document.getElementById('file-input');
-      const packetInput = document.getElementById('packet-input');
-      const options = document.querySelectorAll('input[name="option"]');
+        // Grab elements
+        const button = document.getElementById('analyze-btn');
+        const fileInput = document.getElementById('file-input');
+        const packetInput = document.getElementById('packet-input');
+        const widthInput = document.getElementById('width-input'); // Added width input
+        const heightInput = document.getElementById('height-input'); // Added height input
+        const options = document.querySelectorAll('input[name="option"]');
 
-      // Add click listener
-      button.addEventListener('click', async () => {
-        console.log('Analyze button clicked!');
-        
-        const file = fileInput.files[0];
-        const fileName = file.name
-        const packets = parseInt(packetInput.value, 10);
-        const selectedOption = Array.from(options)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
+        // Add click listener
+        button.addEventListener('click', async () => {
+            console.log('Analyze button clicked!');
+            
+            const file = fileInput.files[0];
+            const width = parseInt(widthInput.value, 10);
+            const height = parseInt(heightInput.value, 10);
+            const packets = parseInt(packetInput.value, 10);
 
-        if (!file) {
-          alert('Please select a file first.');
-          return;
-        }
-        if (!Number.isFinite(packets) || packets <= 0) {
-          alert('Invalid packet amount.');
-          return;
-        }
+            const selectedOption = Array.from(options)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
 
-        console.log(`Selected file: ${file.name}`);
-        console.log(`Packet count: ${packets}`);
-
-        try {
-          // Create a simple audio analysis using Web Audio API
-          const arrayBuffer = await file.arrayBuffer();
-          console.log(`Read file buffer length: ${arrayBuffer.byteLength} bytes`);
-          
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-        // --- Pass 1: compute RMS per packet on channel 0 (or average channels if you prefer) ---
-        const ch0 = audioBuffer.getChannelData(0);
-        const samplesPerPacket = Math.max(1, Math.floor(ch0.length / packets));
-        const rmsValues = new Array(packets);
-
-        for (let i = 0; i < packets; i++) {
-        const start = i * samplesPerPacket;
-        const end = Math.min(start + samplesPerPacket, ch0.length);
-        let sum = 0;
-
-        for (let j = start; j < end; j++) {
-            const s = ch0[j];
-            sum += s * s;
-        }
-
-        const rms = Math.sqrt(sum / Math.max(1, end - start));
-        rmsValues[i] = rms;
-        }
-
-        // --- Find true min / max across packets ---
-        let rawMin = Infinity;
-        let rawMax = -Infinity;
-        for (let i = 0; i < rmsValues.length; i++) {
-        const v = rmsValues[i];
-        if (v < rawMin) rawMin = v;
-        if (v > rawMax) rawMax = v;
-        }
-
-        // --- Pass 2: rescale to [0.2, 1.0] ---
-        // quietest -> 0.2, loudest -> 1.0
-        const outMin = 0.05;
-        const outMax = 1.0;
-        const spanOut = outMax - outMin;
-        const spanIn = rawMax - rawMin;
-
-        let normalized = [];
-        if (spanIn <= 0) {
-        // All packets have the same RMS; render at floor (or choose 0.6, etc.)
-        normalized = rmsValues.map(() => outMin);
-        } else {
-        normalized = rmsValues.map(v => {
-            const t = (v - rawMin) / spanIn;      // [0, 1]
-            const mapped = outMin + t * spanOut;  // [0.2, 1.0]
-            // tiny safety clamp
-            return Math.min(outMax, Math.max(outMin, mapped));
-        });
-        }
-
-        // Send analysis data to the plugin
-        parent.postMessage({
-        pluginMessage: {
-            type: 'analysis-ready',
-            data: {
-            audioName: fileName,
-            normalized,         // values already in [0.2, 1.0]
-            minAvg: outMin,     // 0.2 as requested boundary
-            maxAvg: outMax,     // 1.0 as requested boundary
-            resultPreference: selectedOption,
-            // (optional) raw boundaries if you want them upstream:
-            // rawMin, rawMax
+            if (!file) {
+                alert('Please select a file first.');
+                return;
             }
-        }
-        }, '*');
+            if (!Number.isFinite(packets) || packets <= 0) {
+                alert('Invalid packet amount.');
+                return;
+            }
+            
+            // Basic validation for new inputs
+            if (!Number.isFinite(width) || width <= 0 || width > 9999999) {
+                alert('Invalid width. Must be between 1 and 9999999.');
+                return;
+            }
+            if (!Number.isFinite(height) || height <= 0 || height > 9999999) {
+                alert('Invalid height. Must be between 1 and 9999999.');
+                return;
+            }
 
-        console.log('Analysis complete:', { normalized, rawMin, rawMax });
+            
+            console.log(`Selected file: ${file.name}`);
+            console.log(`Packet count: ${packets}`);
+            console.log(`Output dimensions: ${width}px x ${height}px`); // Log new values
 
-        } catch (error) {
-          console.error('Error analyzing audio:', error);
-          alert('Error analyzing audio file. Please try a different file.');
-        }
-      });
+            try {
+                // Create a simple audio analysis using Web Audio API
+                const arrayBuffer = await file.arrayBuffer();
+                console.log(`Read file buffer length: ${arrayBuffer.byteLength} bytes`);
+                
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+                // --- Pass 1: compute RMS per packet on channel 0 (or average channels if you prefer) ---
+                const ch0 = audioBuffer.getChannelData(0);
+                const samplesPerPacket = Math.max(1, Math.floor(ch0.length / packets));
+                const rmsValues = new Array(packets);
+
+                for (let i = 0; i < packets; i++) {
+                    const start = i * samplesPerPacket;
+                    const end = Math.min(start + samplesPerPacket, ch0.length);
+                    let sum = 0;
+
+                    for (let j = start; j < end; j++) {
+                        const s = ch0[j];
+                        sum += s * s;
+                    }
+
+                    const rms = Math.sqrt(sum / Math.max(1, end - start));
+                    rmsValues[i] = rms;
+                }
+
+                // --- Find true min / max across packets ---
+                let rawMin = Infinity;
+                let rawMax = -Infinity;
+                for (let i = 0; i < rmsValues.length; i++) {
+                    const v = rmsValues[i];
+                    if (v < rawMin) rawMin = v;
+                    if (v > rawMax) rawMax = v;
+                }
+
+                // --- Pass 2: rescale to [0.2, 1.0] ---
+                // quietest -> 0.2, loudest -> 1.0
+                const outMin = 0.05;
+                const outMax = 1.0;
+                const spanOut = outMax - outMin;
+                const spanIn = rawMax - rawMin;
+
+                let normalized = [];
+                if (spanIn <= 0) {
+                    // All packets have the same RMS; render at floor (or choose 0.6, etc.)
+                    normalized = rmsValues.map(() => outMin);
+                } else {
+                    normalized = rmsValues.map(v => {
+                        const t = (v - rawMin) / spanIn;      // [0, 1]
+                        const mapped = outMin + t * spanOut;  // [0.2, 1.0]
+                        // tiny safety clamp
+                        return Math.min(outMax, Math.max(outMin, mapped));
+                    });
+                }
+
+                // Send analysis data to the plugin
+                parent.postMessage({
+                    pluginMessage: {
+                        type: 'analysis-ready',
+                        data: {
+                        audioName: file.name,
+                        normalized,         // values already in [0.2, 1.0]
+                        minAvg: outMin,     // 0.2 as requested boundary
+                        maxAvg: outMax,     // 1.0 as requested boundary
+                        resultPreference: selectedOption,
+                        outputWidth: width, // Added to postMessage
+                        outputHeight: height, // Added to postMessage
+                        // (optional) raw boundaries if you want them upstream:
+                        // rawMin, rawMax
+                        }
+                    }
+                }, '*');
+
+                console.log('Analysis complete:', { normalized, rawMin, rawMax });
+
+            } catch (error) {
+                console.error('Error analyzing audio:', error);
+                alert('Error analyzing audio file. Please try a different file.');
+            }
+        });
     </script>
 </body>
 </html>
