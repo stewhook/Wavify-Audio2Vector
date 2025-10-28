@@ -7,21 +7,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <style>
         /* --- Base and Theme Setup --- */
         body {
-            /* This dark background will be the "outside" color */
             background-color: #1a1a1a;
             color: #e0e0e0;
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            
-            /* Center the UI on the page for preview */
             display: grid;
             place-items: center;
             min-height: 100vh;
             margin: 0;
-            /* padding: 20px; */
             box-sizing: border-box;
         }
 
@@ -29,17 +24,13 @@
         .ui-container {
             width: 300px;
             height: 600px;
-            background-color: #2b2d31; /* Dark gray for the UI panel */
-            /* border-radius: 12px; */
+            background-color: #2b2d31;
             border: 1px solid #444;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            
-            /* Use flex to stack elements and padding for spacing */
             display: flex;
             flex-direction: column;
-            /* Reduced vertical padding from 24px to 18px */
-            padding: 18px 24px; 
-            box-sizing: border-box; /* Ensures padding doesn't break width/height */
+            padding: 18px 24px;
+            box-sizing: border-box;
         }
 
         /* --- Header --- */
@@ -48,18 +39,13 @@
             font-weight: 700;
             color: #ffffff;
             text-align: center;
-            /* Reduced margin-bottom from 20px to 10px */
-            margin-bottom: 10px; 
+            margin-bottom: 10px;
             border-bottom: 1px solid #444;
-            /* Reduced padding-bottom from 15px to 10px */
-            padding-bottom: 10px; 
+            padding-bottom: 10px;
         }
 
         /* --- Form Groups --- */
-        .form-group {
-            /* Reduced margin-bottom from 25px to 18px */
-            margin-bottom: 18px;
-        }
+        .form-group { margin-bottom: 18px; }
 
         .form-group label {
             display: block;
@@ -68,58 +54,28 @@
             color: #b0b0b0;
             margin-bottom: 8px;
         }
-        
-        /* --- New: Inline Inputs Container for Width/Height --- */
-        .inline-inputs {
-            display: flex;
-            gap: 10px; /* Space between the two input groups */
-        }
-        
-        /* New: Container for the individual input/label pairs */
-        .input-group-inline {
-            display: flex;
-            flex-direction: column;
-            flex: 1; /* Makes each group take equal width */
-        }
 
-        /* Adjust label inside the inline group to sit right above the input */
-        .input-group-inline label {
-            /* Inherit base label style but override display to keep it inline with the flex column setup */
-            margin-bottom: 8px;
-        }
+        .inline-inputs { display: flex; gap: 10px; }
+        .input-group-inline { display: flex; flex-direction: column; flex: 1; }
+        .input-group-inline label { margin-bottom: 8px; }
 
         /* --- Number Input Styling --- */
         input[type="number"] {
             width: 100%;
-            /* Reduced padding from 12px to 8px for a slimmer look */
-            padding: 8px; 
+            padding: 8px;
             background-color: #1e1e1e;
             border: 1px solid #555;
             border-radius: 8px;
             color: #e0e0e0;
             font-size: 1rem;
-            box-sizing: border-box; /* Consistent sizing */
+            box-sizing: border-box;
         }
-        
-        /* New: No need for .inline-inputs input[type="number"] style anymore */
-        /* because the .input-group-inline handles the flex distribution */
-
-        /* Hide spinner in Chrome, Safari, Edge */
         input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
+        input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
         /* --- File Input Styling --- */
-        input[type="file"] {
-            font-size: 0.9rem;
-            color: #a0a0a0;
-        }
-
-        /* Style the "Choose File" button */
+        input[type="file"] { font-size: 0.9rem; color: #a0a0a0; }
         input[type="file"]::file-selector-button {
-            /* Apply gradient to file selector button */
             background-image: linear-gradient(135deg, #4a55c7 0%, #7e5be9 100%);
             color: white;
             border: none;
@@ -129,111 +85,58 @@
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             margin-right: 12px;
-            background-size: 100% 100%; /* Reset background size */
-            
-            /* Added base glow for the file button */
-            box-shadow: 0 3px 10px rgba(74, 85, 199, 0.3); 
+            background-size: 100% 100%;
+            box-shadow: 0 3px 10px rgba(74, 85, 199, 0.3);
         }
-
         input[type="file"]::file-selector-button:hover {
-            /* Removed background position shift on hover */
-            background-position: 0% 0%; 
-            /* Enhanced glow on hover */
-            box-shadow: 0 4px 15px rgba(126, 91, 233, 0.6); 
+            background-position: 0% 0%;
+            box-shadow: 0 4px 15px rgba(126, 91, 233, 0.6);
         }
 
-        /* --- Settings Section (Checkboxes) --- */
-        .settings-section {
-            border-top: 1px solid #444;
-            padding-top: 10px; /* Slimmer padding */
-            margin-top: auto; /* Pushes this section and subsequent content to the bottom */
-        }
-
-        .settings-section h3 {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #c0c0c0;
-            margin-top: 0;
-            margin-bottom: 5px; /* Slimmer margin */
-        }
+        /* --- Settings Section (Radios) --- */
+        .settings-section { border-top: 1px solid #444; padding-top: 10px; margin-top: auto; }
+        .settings-section h3 { font-size: 1.1rem; font-weight: 500; color: #c0c0c0; margin: 0 0 5px; }
 
         .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background-color: #3a3a3a;
-            padding: 8px 14px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-            cursor: pointer;
-            transition: background-color 0.2s;
+            display: flex; align-items: center; gap: 12px;
+            background-color: #3a3a3a; padding: 8px 14px; border-radius: 8px;
+            margin-bottom: 6px; cursor: pointer; transition: background-color 0.2s;
         }
-
-        .checkbox-item:hover {
-            background-color: #454545;
-        }
-
+        .checkbox-item:hover { background-color: #454545; }
         .checkbox-item input[type="radio"] {
-            width: 1.2em;
-            height: 1.2em;
-            accent-color: #4a55c7;
-            background-color: #1e1e1e;
-            border-radius: 4px;      /* optional squared look */
-            border: 1px solid #555;  /* this won’t show in all browsers for radios */
-            cursor: pointer;
+            width: 1.2em; height: 1.2em; accent-color: #4a55c7;
+            background-color: #1e1e1e; border-radius: 4px; border: 1px solid #555; cursor: pointer;
         }
-        
-        /* The label for the checkbox itself */
-        .checkbox-item span {
-            color: #e0e0e0;
-            font-weight: 400;
-            font-size: 1rem;
-        }
+        .checkbox-item span { color: #e0e0e0; font-weight: 400; font-size: 1rem; }
 
         /* --- Analyze Button Styling --- */
         .analyze-button {
-            width: 100%;
-            padding: 15px 20px;
-            /* Reduced margin-top from 30px to 20px */
-            margin-top: 20px; 
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: white;
-            cursor: pointer;
-            
-            /* Simple Gradient (removed carousel colors/size) */
-            background-image: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%); 
-            background-size: 100% 100%;
-            transition: background-color 0.3s ease-in-out; /* Simple transition */
-            
-            /* Kept subtle glow */
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4); 
-            
-            /* Removed animation */
+            width: 100%; padding: 15px 20px; margin-top: 20px;
+            border: none; border-radius: 8px; font-size: 1.2rem; font-weight: 700; color: white; cursor: pointer;
+            background-image: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+            background-size: 100% 100%; transition: background-color 0.3s ease-in-out;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
-        
-        /* Removed @keyframes gradientCarousel and the Analyze button :hover styles */
-        
+
+        /* small progress text (optional) */
+        .progress { text-align: center; font-size: 0.85rem; color: #bdbdbd; margin-top: 8px; min-height: 1em; }
     </style>
 </head>
 <body>
-
     <div class="ui-container">
-        
         <h2 class="ui-header">Vectorize Audio</h2>
-        
+
         <div class="form-group">
-            <label for="file-input">Audio File</label>
-            <input type="file" id="file-input" name="file-input" accept="audio/*">
+            <label for="file-input">Audio Files</label>
+            <!-- ADDED: multiple -->
+            <input type="file" id="file-input" name="file-input" accept="audio/*" multiple>
         </div>
 
         <div class="form-group">
             <label for="packet-input">Packet Count</label>
             <input type="number" id="packet-input" name="packet-input" value="1024" min="1" max="9999">
         </div>
-        
+
         <div class="form-group">
             <div class="inline-inputs">
                 <div class="input-group-inline">
@@ -249,57 +152,128 @@
 
         <div class="settings-section">
             <h3>Settings</h3>
-            
-            <label class="checkbox-item">
-              <input type="radio" id="setting-default-result" name="option" value="default" checked>
-              <span>Default</span>
-            </label>
-            
-            <label class="checkbox-item">
-              <input type="radio" id="setting-group-result" name="option" value="group">
-              <span>Group Packets</span>
-            </label>
-            
-            <label class="checkbox-item">
-              <input type="radio" id="setting-union-result" name="option" value="union">
-              <span>Union Packets</span>
-            </label>
-          </div>
 
-        <button class="analyze-button" id="analyze-btn" >Analyze</button>
+            <label class="checkbox-item">
+                <input type="radio" id="setting-default-result" name="option" value="default" checked>
+                <span>Default</span>
+            </label>
+
+            <label class="checkbox-item">
+                <input type="radio" id="setting-group-result" name="option" value="group">
+                <span>Group Packets</span>
+            </label>
+
+            <label class="checkbox-item">
+                <input type="radio" id="setting-union-result" name="option" value="union">
+                <span>Union Packets</span>
+            </label>
+        </div>
+
+        <button class="analyze-button" id="analyze-btn">Analyze</button>
+        <div class="progress" id="progress-text"></div>
     </div>
+
     <script type="module">
-        // Grab elements
+        // Elements
         const button = document.getElementById('analyze-btn');
         const fileInput = document.getElementById('file-input');
         const packetInput = document.getElementById('packet-input');
-        const widthInput = document.getElementById('width-input'); // Added width input
-        const heightInput = document.getElementById('height-input'); // Added height input
+        const widthInput = document.getElementById('width-input');
+        const heightInput = document.getElementById('height-input');
+        const progressText = document.getElementById('progress-text');
         const options = document.querySelectorAll('input[name="option"]');
 
-        // Add click listener
+        // Helper to read selected option (single value)
+        const getSelectedOption = () =>
+            (document.querySelector('input[name="option"]:checked')?.value) || 'default';
+
+        // Core analysis for a single File -> posts message to parent
+        async function analyzeOneFile(file, { packets, width, height, resultPreference }) {
+            console.log(`Analyzing: ${file.name}`);
+
+            const arrayBuffer = await file.arrayBuffer();
+            console.log(`Read file buffer length: ${arrayBuffer.byteLength} bytes`);
+
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+            const ch0 = audioBuffer.getChannelData(0);
+            const samplesPerPacket = Math.max(1, Math.floor(ch0.length / packets));
+            const rmsValues = new Array(packets);
+
+            for (let i = 0; i < packets; i++) {
+                const start = i * samplesPerPacket;
+                const end = Math.min(start + samplesPerPacket, ch0.length);
+                let sum = 0;
+                for (let j = start; j < end; j++) {
+                    const s = ch0[j];
+                    sum += s * s;
+                }
+                const rms = Math.sqrt(sum / Math.max(1, end - start));
+                rmsValues[i] = rms;
+            }
+
+            // min/max
+            let rawMin = Infinity;
+            let rawMax = -Infinity;
+            for (let i = 0; i < rmsValues.length; i++) {
+                const v = rmsValues[i];
+                if (v < rawMin) rawMin = v;
+                if (v > rawMax) rawMax = v;
+            }
+
+            // normalize to [0.05, 1.0]
+            const outMin = 0.05;
+            const outMax = 1.0;
+            const spanOut = outMax - outMin;
+            const spanIn = rawMax - rawMin;
+
+            let normalized = [];
+            if (spanIn <= 0) {
+                normalized = rmsValues.map(() => outMin);
+            } else {
+                normalized = rmsValues.map(v => {
+                    const t = (v - rawMin) / spanIn;
+                    const mapped = outMin + t * spanOut;
+                    return Math.min(outMax, Math.max(outMin, mapped));
+                });
+            }
+
+            // Post result for THIS file
+            parent.postMessage({
+                pluginMessage: {
+                    type: 'analysis-ready',
+                    data: {
+                        audioName: file.name,
+                        normalized,
+                        minAvg: outMin,
+                        maxAvg: outMax,
+                        resultPreference,
+                        outputWidth: width,
+                        outputHeight: height,
+                    }
+                }
+            }, '*');
+
+            console.log('Analysis complete:', { file: file.name, rawMin, rawMax });
+        }
+
+        // Button handler: validate once, then process all files sequentially
         button.addEventListener('click', async () => {
-            console.log('Analyze button clicked!');
-            
-            const file = fileInput.files[0];
+            const files = Array.from(fileInput.files || []);
             const width = parseInt(widthInput.value, 10);
             const height = parseInt(heightInput.value, 10);
             const packets = parseInt(packetInput.value, 10);
+            const resultPreference = getSelectedOption();
 
-            const selectedOption = Array.from(options)
-            .filter(cb => cb.checked)
-            .map(cb => cb.value);
-
-            if (!file) {
-                alert('Please select a file first.');
+            if (!files.length) {
+                alert('Please select at least one audio file.');
                 return;
             }
             if (!Number.isFinite(packets) || packets <= 0) {
                 alert('Invalid packet amount.');
                 return;
             }
-            
-            // Basic validation for new inputs
             if (!Number.isFinite(width) || width <= 0 || width > 9999999) {
                 alert('Invalid width. Must be between 1 and 9999999.');
                 return;
@@ -309,90 +283,28 @@
                 return;
             }
 
-            
-            console.log(`Selected file: ${file.name}`);
-            console.log(`Packet count: ${packets}`);
-            console.log(`Output dimensions: ${width}px x ${height}px`); // Log new values
-
+            // Lock UI during processing
+            button.disabled = true;
+            const originalLabel = button.textContent;
             try {
-                // Create a simple audio analysis using Web Audio API
-                const arrayBuffer = await file.arrayBuffer();
-                console.log(`Read file buffer length: ${arrayBuffer.byteLength} bytes`);
-                
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-
-                // --- Pass 1: compute RMS per packet on channel 0 (or average channels if you prefer) ---
-                const ch0 = audioBuffer.getChannelData(0);
-                const samplesPerPacket = Math.max(1, Math.floor(ch0.length / packets));
-                const rmsValues = new Array(packets);
-
-                for (let i = 0; i < packets; i++) {
-                    const start = i * samplesPerPacket;
-                    const end = Math.min(start + samplesPerPacket, ch0.length);
-                    let sum = 0;
-
-                    for (let j = start; j < end; j++) {
-                        const s = ch0[j];
-                        sum += s * s;
+                for (let i = 0; i < files.length; i++) {
+                    const f = files[i];
+                    button.textContent = `Analyzing (${i + 1}/${files.length})…`;
+                    progressText.textContent = `Processing: ${f.name}`;
+                    try {
+                        await analyzeOneFile(f, { packets, width, height, resultPreference });
+                    } catch (err) {
+                        console.error(`Error analyzing ${f.name}:`, err);
+                        // Continue with next file after alerting
+                        alert(`Error analyzing "${f.name}". Skipping to next file.`);
                     }
-
-                    const rms = Math.sqrt(sum / Math.max(1, end - start));
-                    rmsValues[i] = rms;
                 }
-
-                // --- Find true min / max across packets ---
-                let rawMin = Infinity;
-                let rawMax = -Infinity;
-                for (let i = 0; i < rmsValues.length; i++) {
-                    const v = rmsValues[i];
-                    if (v < rawMin) rawMin = v;
-                    if (v > rawMax) rawMax = v;
-                }
-
-                // --- Pass 2: rescale to [0.2, 1.0] ---
-                // quietest -> 0.2, loudest -> 1.0
-                const outMin = 0.05;
-                const outMax = 1.0;
-                const spanOut = outMax - outMin;
-                const spanIn = rawMax - rawMin;
-
-                let normalized = [];
-                if (spanIn <= 0) {
-                    // All packets have the same RMS; render at floor (or choose 0.6, etc.)
-                    normalized = rmsValues.map(() => outMin);
-                } else {
-                    normalized = rmsValues.map(v => {
-                        const t = (v - rawMin) / spanIn;      // [0, 1]
-                        const mapped = outMin + t * spanOut;  // [0.2, 1.0]
-                        // tiny safety clamp
-                        return Math.min(outMax, Math.max(outMin, mapped));
-                    });
-                }
-
-                // Send analysis data to the plugin
-                parent.postMessage({
-                    pluginMessage: {
-                        type: 'analysis-ready',
-                        data: {
-                        audioName: file.name,
-                        normalized,         // values already in [0.2, 1.0]
-                        minAvg: outMin,     // 0.2 as requested boundary
-                        maxAvg: outMax,     // 1.0 as requested boundary
-                        resultPreference: selectedOption,
-                        outputWidth: width, // Added to postMessage
-                        outputHeight: height, // Added to postMessage
-                        // (optional) raw boundaries if you want them upstream:
-                        // rawMin, rawMax
-                        }
-                    }
-                }, '*');
-
-                console.log('Analysis complete:', { normalized, rawMin, rawMax });
-
-            } catch (error) {
-                console.error('Error analyzing audio:', error);
-                alert('Error analyzing audio file. Please try a different file.');
+                progressText.textContent = 'Done.';
+            } finally {
+                button.disabled = false;
+                button.textContent = originalLabel;
+                // (optional) keep last filename shown or clear:
+                // progressText.textContent = '';
             }
         });
     </script>
