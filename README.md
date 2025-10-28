@@ -32,13 +32,15 @@ stewhook (samir@abuznaid.com)
 
 ## Planned Updates
 ```diff
-Batch audio uploads
++Batch audio uploads
 +Height & Width customization (Done)
 Different analysis algorithms
 Isolate analysis by frequency
 ```
 
 ## Version History
+* 0.3
+   * Support for processing multiple files at once
 * 0.2
    * Added Height & Width Customization
    * Linked OSRepo in support tab on Figma
