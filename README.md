@@ -32,7 +32,7 @@ stewhook (samir@abuznaid.com)
 
 ## Planned Updates
 ```diff
-+Batch audio uploads
++Batch audio uploads (Done)
 +Height & Width customization (Done)
 Different analysis algorithms
 Isolate analysis by frequency
